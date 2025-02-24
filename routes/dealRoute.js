@@ -5,12 +5,13 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
   try {
-    const { dateOfDeal, products, buyer } = req.body;
+    const { dateOfDeal, products, buyer, price } = req.body;
 
     const deal = new Deal({
       dateOfDeal,
       products,
       buyer,
+      price,
       dealId: uuidv4(),
     });
 

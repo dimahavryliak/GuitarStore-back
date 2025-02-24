@@ -16,6 +16,7 @@ const dealSchema = new mongoose.Schema({
     contactPerson: { type: String, required: true },
     address: { type: String, required: true },
   },
+  price: Number,
   dealId: {
     type: String,
     required: true,
