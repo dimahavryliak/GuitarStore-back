@@ -24,5 +24,5 @@ app.use(passport.session());
 app.use("/api/products", require("./routes/productRoute"));
 app.use("/api/buyers", require("./routes/buyerRoute"));
 app.use("/api/auth", require("./routes/authRoutes"));
-
+app.use("/api/deals", require("./routes/dealRoute"));
 app.listen(5000, () => console.log("Server running on port 5000"));
