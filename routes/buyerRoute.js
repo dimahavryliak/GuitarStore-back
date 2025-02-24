@@ -4,12 +4,18 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
   try {
-    const { phone, contactPerson, address } = req.body;
-    const user = new Buyer({ phone, contactPerson, address });
-    await user.save();
-    res.status(201).json(user);
+    const buyer = new Buyer(req.body);
+    await buyer.save();
+    res.status(201).json(buyer);
   } catch (error) {
-    res.status(500).json({ error: "Error creating user" });
+    console.error("Error creating buyer:", error);
+    if (error.code === 11000) {
+      res
+        .status(400)
+        .json({ error: "Duplicate key error: Phone number must be unique" });
+    } else {
+      res.status(500).json({ error: "Error creating buyer" });
+    }
   }
 });
 

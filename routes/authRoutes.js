@@ -1,7 +1,7 @@
 const express = require("express");
 const passport = require("passport");
 const bcrypt = require("bcryptjs");
-const User = require("../models/Buyer");
+const User = require("../models/User");
 const router = express.Router();
 
 router.post("/register", async (req, res) => {
@@ -12,7 +12,7 @@ router.post("/register", async (req, res) => {
     await user.save();
     res.status(201).json(user);
   } catch (error) {
-    res.status(500).json({ error: "Error creating user" });
+    console.error("Error creating user:", error);
   }
 });
 
