@@ -13,11 +13,25 @@ router.post("/register", async (req, res) => {
     res.status(201).json(user);
   } catch (error) {
     console.error("Error creating user:", error);
+    res.status(500).json({ error: "Error creating user" });
   }
 });
 
-router.post("/login", passport.authenticate("local"), (req, res) => {
-  res.json(req.user);
+router.post("/login", (req, res, next) => {
+  passport.authenticate("local", (err, user, info) => {
+    if (err) {
+      return next(err);
+    }
+    if (!user) {
+      return res.status(401).json({ error: "Invalid email or password" });
+    }
+    req.logIn(user, (err) => {
+      if (err) {
+        return next(err);
+      }
+      return res.json(user);
+    });
+  })(req, res, next);
 });
 
 router.get("/logout", (req, res) => {
