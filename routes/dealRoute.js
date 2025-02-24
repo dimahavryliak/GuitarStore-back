@@ -23,4 +23,14 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.get("/", async (req, res) => {
+  try {
+    const deals = await Deal.find();
+    res.status(200).json(deals);
+  } catch (error) {
+    console.error("Error retrieving deals:", error);
+    res.status(500).json({ error: "Error retrieving deals" });
+  }
+});
+
 module.exports = router;
