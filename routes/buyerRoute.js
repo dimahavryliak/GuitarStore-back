@@ -1,11 +1,11 @@
 const express = require("express");
-const User = require("../models/User");
+const Buyer = require("../models/Buyer");
 const router = express.Router();
 
 router.post("/", async (req, res) => {
   try {
-    const { username, email, password } = req.body;
-    const user = new User({ username, email, password });
+    const { phone, contactPerson, address } = req.body;
+    const user = new Buyer({ phone, contactPerson, address });
     await user.save();
     res.status(201).json(user);
   } catch (error) {
